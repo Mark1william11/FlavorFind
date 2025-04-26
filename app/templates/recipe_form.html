@@ -9,32 +9,33 @@
             {# Bootstrap Alert #}
              <div id="recipe-form-message" class="alert" role="alert" style="display: none;"></div>
 
-            <form id="recipe-form" {% if recipe %}data-mode="edit" data-recipe-id="{{ recipe.recipe_id }}"{% else %}data-mode="create"{% endif %}>
+            <form id="recipe-form" method="POST" novalidate {% if recipe %}data-mode="edit" data-recipe-id="{{ recipe.recipe_id }}"{% else %}data-mode="create"{% endif %}>
+                {{ form.hidden_tag() }}
                 <div class="mb-3">
-                    <label for="title" class="form-label">Recipe Title:</label>
-                    <input type="text" class="form-control" id="title" name="title" required value="{{ recipe.title if recipe else '' }}">
+                    {{ form.title.label(class="form-label") }}
+                    {{ form.title(class="form-control", required="required") }}
                 </div>
                 <div class="mb-3">
-                    <label for="description" class="form-label">Description (Optional):</label>
-                    <textarea class="form-control" id="description" name="description" rows="3">{{ recipe.description if recipe else '' }}</textarea>
+                    {{ form.description.label(class="form-label") }}
+                    {{ form.description(class="form-control", rows="3") }}
                 </div>
                 <div class="mb-3">
-                    <label for="ingredients" class="form-label">Ingredients (One per line):</label>
-                    <textarea class="form-control" id="ingredients" name="ingredients" rows="8" required placeholder="e.g.
+                    {{ form.ingredients.label(class="form-label") }}
+                    {{ form.ingredients(class="form-control", rows="8", required="required", placeholder="e.g.
 1 cup Flour
 2 Eggs
-1/2 tsp Salt">{{ recipe.ingredients if recipe else '' }}</textarea>
+1/2 tsp Salt") }}
                 </div>
                 <div class="mb-3">
-                    <label for="instructions" class="form-label">Instructions:</label>
-                    <textarea class="form-control" id="instructions" name="instructions" rows="10" required placeholder="e.g.
+                    {{ form.instructions.label(class="form-label") }}
+                    {{ form.instructions(class="form-control", rows="10", required="required", placeholder="e.g.
 Step 1: Mix dry ingredients.
 Step 2: Add wet ingredients.
-...">{{ recipe.instructions if recipe else '' }}</textarea>
+...") }}
                 </div>
                 <div class="mb-3">
-                    <label for="image_url" class="form-label">Image URL (Optional):</label>
-                    <input type="url" class="form-control" id="image_url" name="image_url" placeholder="https://example.com/image.jpg" value="{{ recipe.image_url if recipe else '' }}">
+                    {{ form.image_url.label(class="form-label") }}
+                    {{ form.image_url(class="form-control", placeholder="https://example.com/image.jpg") }}
                 </div>
 
                 <button type="submit" class="btn btn-primary">{% if recipe %}Update Recipe{% else %}Save Recipe{% endif %}</button>

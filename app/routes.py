@@ -1,6 +1,7 @@
 # app/routes.py
 from flask import Blueprint, render_template, session, redirect, url_for, flash
 from .models import Recipe
+from .forms import LoginForm, RegistrationForm, RecipeForm
 
 # Create a Blueprint for main application routes (serving HTML pages)
 main_bp = Blueprint('main', __name__)
@@ -16,8 +17,9 @@ def login():
     if 'user_id' in session:
         flash('You are already logged in.', 'info') # Optional feedback message
         return redirect(url_for('main.index')) # Redirect logged-in users away
+    form = LoginForm() # Instantiate form
     # --- End check ---
-    return render_template('login.html', page_title="Login")
+    return render_template('login.html', page_title="Login", form=form)
 
 @main_bp.route('/register')
 def register():
@@ -25,8 +27,9 @@ def register():
     if 'user_id' in session:
          flash('You are already logged in.', 'info') # Optional feedback message
          return redirect(url_for('main.index')) # Redirect logged-in users away
+    form = RegistrationForm() # Instantiate form
     # --- End check ---
-    return render_template('register.html', page_title="Register")
+    return render_template('register.html', page_title="Register", form=form)
 
 # Add placeholders for other pages - we'll need login protection later
 @main_bp.route('/my-recipes')
@@ -44,9 +47,10 @@ def my_recipes():
 def new_recipe_form():
     if 'user_id' not in session:
         return redirect(url_for('main.login'))
+    form = RecipeForm() # Instantiate form
     # Render the recipe form template
     # We pass 'recipe=None' to indicate it's for creating, not editing
-    return render_template('recipe_form.html', page_title="Add Recipe", recipe=None)
+    return render_template('recipe_form.html', page_title="Add Recipe", form=form, recipe=None)
 
 @main_bp.route('/recipe/<int:recipe_id>')
 def view_recipe(recipe_id):
@@ -75,7 +79,9 @@ def edit_recipe_form(recipe_id):
         # abort(404) # Or 403 Forbidden
         return redirect(url_for('main.my_recipes')) # Redirect if not found/authorized
 
+    form = RecipeForm(obj=recipe_to_edit)
     # Render the same form template, but pass the recipe object
     return render_template('recipe_form.html',
                            page_title=f"Edit Recipe: {recipe_to_edit.title}",
+                           form=form, # Pass form
                            recipe=recipe_to_edit) # Pass the recipe data

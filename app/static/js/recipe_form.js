@@ -59,11 +59,14 @@ if (recipeForm) {
         }
         submitButton.disabled = true;
 
+        const csrfToken = recipeForm.querySelector('input[name="csrf_token"]').value;
 
         try {
             const response = await fetch(apiUrl, {
                 method: method,
-                headers: { 'Content-Type': 'application/json', },
+                headers: { 'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken
+                 },
                 body: JSON.stringify(formData),
             });
             const result = await response.json();

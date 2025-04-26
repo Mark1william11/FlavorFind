@@ -4,6 +4,7 @@ import os
 from dotenv import load_dotenv
 from flask_sqlalchemy import SQLAlchemy # Import
 from flask_migrate import Migrate       # Import
+from flask_wtf.csrf import CSRFProtect
 
 # Load environment variables from .env file
 load_dotenv()
@@ -11,6 +12,8 @@ load_dotenv()
 # Initialize extensions (outside the factory function)
 db = SQLAlchemy()
 migrate = Migrate()
+
+csrf = CSRFProtect() # Initialize CSRFProtect instance
 
 def create_app():
     """Application Factory Function"""
@@ -24,14 +27,17 @@ def create_app():
 
     db.init_app(app)
     migrate.init_app(app, db)
+    csrf.init_app(app) # Initialize CSRF protection for the app
 
     # --- Context Processor ---
     # Makes session data available in all templates automatically
     @app.context_processor
     def inject_user_status():
-        is_logged_in = 'user_id' in session
-        username = session.get('username') # Get username if available
-        return dict(is_logged_in=is_logged_in, current_username=username)
+        # is_logged_in = 'user_id' in session
+        # username = session.get('username') # Get username if available
+        # from flask_wtf.csrf import generate_csrf
+        return dict(is_logged_in=('user_id' in session),
+                     current_username=session.get('username')) # Pass the function itself
 
     # Import models AFTER db initialization
     from . import models

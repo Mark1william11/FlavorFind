@@ -92,8 +92,20 @@ async function handleDeleteClick(event) {
 
 
 async function deleteRecipe(recipeId, buttonElement) {
+    const csrfTokenMeta = document.querySelector('meta[name="csrf-token"]');
+    let csrfToken = csrfTokenMeta ? csrfTokenMeta.getAttribute('content') : null;
+
+    if (!csrfToken) {
+         alert("Error: Could not perform delete securely. CSRF token missing.");
+         if (buttonElement) buttonElement.disabled = false;
+         return;
+    }
     try {
-         const response = await fetch(`/api/recipes/${recipeId}`, { method: 'DELETE' });
+         const response = await fetch(`/api/recipes/${recipeId}`, { method: 'DELETE',
+            headers: {
+                 'X-CSRFToken': csrfToken 
+             }
+          });
          if (response.ok) {
              // Remove the list item visually or just refresh the whole list
              fetchMyRecipes(); // Easiest is to just refresh

@@ -142,8 +142,23 @@ function displayDetailMessage(message, isError = false) {
 // Delete function specific to the detail page
 async function deleteRecipeFromDetail(recipeId, buttonElement) {
     displayDetailMessage('Deleting...', false);
+
+    // Get CSRF token
+    const csrfTokenMeta = document.querySelector('meta[name="csrf-token"]');
+    let csrfToken = csrfTokenMeta ? csrfTokenMeta.getAttribute('content') : null;
+
+    if (!csrfToken) {
+         alert("Error: Could not perform delete securely. CSRF token missing.");
+         if (buttonElement) buttonElement.disabled = false;
+         return;
+    }
+
     try {
-         const response = await fetch(`/api/recipes/${recipeId}`, { method: 'DELETE' });
+         const response = await fetch(`/api/recipes/${recipeId}`, { method: 'DELETE',
+            headers: {
+                 'X-CSRFToken': csrfToken
+             }
+          });
          if (response.ok) {
              displayDetailMessage('Recipe deleted successfully! Redirecting...', false);
              setTimeout(() => { window.location.href = '/my-recipes'; }, 1500);

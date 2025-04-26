@@ -32,11 +32,14 @@ if (loginForm) {
         submitButton.disabled = true; // Disable button
         submitButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Logging in...'; // Loading state
 
-
+        // Get CSRF token from hidden input field rendered by Flask-WTF
+        const csrfToken = loginForm.querySelector('input[name="csrf_token"]').value;
         try {
             const response = await fetch('/api/auth/login', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json', },
+                headers: { 'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken
+                 },
                 body: JSON.stringify({ identifier: identifier, password: password }),
             });
             const result = await response.json();
@@ -81,11 +84,14 @@ if (registerForm) {
         submitButton.disabled = true; // Disable button
         submitButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Registering...'; // Loading state
 
-
+        // Get CSRF token from hidden input field
+        const csrfToken = registerForm.querySelector('input[name="csrf_token"]').value;
         try {
             const response = await fetch('/api/auth/register', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json', },
+                headers: { 'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken
+                 },
                 body: JSON.stringify({ username: username, email: email, password: password }),
             });
             const result = await response.json();
