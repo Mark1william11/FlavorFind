@@ -55,6 +55,7 @@ cd [project-folder-name]
 python -m venv venv
 # Windows: .\venv\Scripts\activate | macOS/Linux: source venv/bin/activate
 pip install -r requirements.txt
+```
 
 **3. Database:**
 Connect to MySQL as root.
