@@ -9,8 +9,7 @@
 
 FlavorFind is a dynamic web application for searching external recipes (via TheMealDB) and managing a personal recipe collection (CRUD operations). Developed for the CSE 428 Data Engineering course.
 
-**Live Demo:** [Link if deployed]
-**GitHub Repo:** [Your GitHub Repo Link]
+**GitHub Repo:** [\[GITHUB\]](https://github.com/Mark1william11/FlavorFind)
 
 ---
 
@@ -26,7 +25,6 @@ FlavorFind is a dynamic web application for searching external recipes (via TheM
 **Bonus Features Implemented:**
 *   [X] Real-world data (TheMealDB API)
 *   [X] AJAX for dynamic search (XMLHttpRequest)
-*   [ ] Hosting [*Update checkmark if deployed*]
 
 ---
 
