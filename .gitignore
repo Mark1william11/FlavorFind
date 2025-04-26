@@ -1,0 +1,15 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Environment variables
+.env
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# IDE specific (Optional, add your specific ones if needed)
+.vscode/
+*.swp

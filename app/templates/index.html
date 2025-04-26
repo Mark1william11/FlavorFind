@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Search Recipes - FlavorFind{% endblock %}
+
+{% block content %}
+    <h1 class="mb-4">Search External Recipes</h1>
+    <div id="search-area" class="row g-3 mb-4 align-items-center border p-3 rounded bg-light">
+        <div class="col-md-5">
+            <label for="search-query" class="visually-hidden">Recipe Name</label>
+            <input type="text" class="form-control" id="search-query" placeholder="Search by recipe name...">
+        </div>
+        <div class="col-md-1">
+             <button id="search-by-name-btn" class="btn btn-info w-100">Search</button>
+        </div>
+        <div class="col-md-5">
+             <label for="search-ingredient" class="visually-hidden">Ingredient</label>
+            <input type="text" class="form-control" id="search-ingredient" placeholder="Search by ingredient...">
+        </div>
+         <div class="col-md-1">
+            <button id="search-by-ingredient-btn" class="btn btn-secondary w-100">Search</button>
+        </div>
+    </div>
+
+    <hr class="my-4">
+
+    <h2>Results</h2>
+    {# Use Bootstrap grid for cards #}
+    <div id="search-results" class="mt-3 row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+        <div class="col"> {# Default message takes up one column space #}
+             <p>Enter a search term above to find recipes.</p>
+        </div>
+    </div>
+
+    {# Modal HTML Structure with Bootstrap classes #}
+    <div class="modal fade" id="recipeDetailModal" tabindex="-1" aria-labelledby="recipeDetailModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="modal-recipe-title">Recipe Title</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> {# Standard Bootstrap close #}
+          </div>
+          <div class="modal-body" id="modal-recipe-body">
+            <p>Loading details...</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> {# Standard Bootstrap close #}
+          </div>
+        </div>
+      </div>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/search.js') }}"></script>
+{% endblock %}

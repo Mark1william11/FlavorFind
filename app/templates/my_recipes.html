@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}My Recipes - FlavorFind{% endblock %}
+
+{% block content %}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+         <h1>My Personal Recipes</h1>
+         <a href="{{ url_for('main.new_recipe_form') }}" class="btn btn-success">
+             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill me-1" viewBox="0 0 16 16"> <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z"/> </svg>
+             Add New Recipe
+        </a>
+    </div>
+    <hr>
+
+    <div id="my-recipes-list">
+        {# Bootstrap List Group will be generated here by JS #}
+        <p>Loading your recipes...</p>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/my_recipes.js') }}"></script>
+{% endblock %}

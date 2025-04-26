@@ -1,0 +1,107 @@
+/* app/static/css/style.css */
+
+/* Keep styles that are specific to your app or override Bootstrap */
+
+/* Example: maybe keep specific link colors if desired */
+/* a { color: #0056b3; } */
+
+/* You can probably remove most of these now: */
+/*
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+header {
+    background-color: #f4f4f4;
+    padding: 1rem 0;
+    border-bottom: 1px solid #ccc;
+}
+
+nav {
+    width: 90%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav a {
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-left: 15px;
+}
+
+main {
+    width: 90%;
+    margin: 20px auto;
+    padding: 20px;
+    min-height: 70vh;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1rem 0;
+    margin-top: 20px;
+}
+
+form div { margin-bottom: 10px; }
+form label { display: block; margin-bottom: 5px; }
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form textarea { width: 95%; padding: 8px; border: 1px solid #ccc; }
+form button { padding: 10px 15px; background-color: #5cb85c; color: white; border: none; cursor: pointer; }
+form button:hover { background-color: #4cae4c; }
+
+.message-area { margin-top: 15px; padding: 10px; border-radius: 5px; }
+.message-area.success { background-color: #dff0d8; border: 1px solid #d6e9c6; color: #3c763d; }
+.message-area.error { background-color: #f2dede; border: 1px solid #ebccd1; color: #a94442; }
+
+#search-area input { margin-right: 10px; margin-bottom: 10px;}
+#search-results { margin-top: 20px; }
+*/
+
+/* You might keep specific styles, e.g. for the modal if Bootstrap's default isn't perfect */
+/* .modal-content { ... } */
+
+/* Add any custom overrides or additional styles here */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex-grow: 1; /* Make main content area grow to push footer down */
+}
+
+/* Style for recipe search cards */
+#search-results .card {
+    transition: box-shadow 0.3s ease-in-out;
+}
+#search-results .card:hover {
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+}
+
+/* Style for personal recipe list items */
+#my-recipes-list .list-group-item a.fw-bold {
+    color: #0d6efd; /* Bootstrap primary blue */
+}
+#my-recipes-list .list-group-item a.fw-bold:hover {
+    text-decoration: underline;
+}
